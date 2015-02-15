@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+{% for object in results %}
+    <h2><a href="{{ object.url }}">{{ object }}<a></h2>
+    <p>
+        {{ object.author }}
+        on {{ object.publish_datetime|date }}
+        in <a href="{{ object.category_url }}">{{ object.category }}</a>
+        ({{ object.is_public|yesno:"published,unpublished" }})
+    </p>
+    {{ object.text|linebreaks }}
+{% empty %}
+    <p>No matching results!</p>
+{% endfor %}
+{% endblock %}

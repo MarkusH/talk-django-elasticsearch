@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<h1>{{ object }}</h1>
+{% for article in articles %}
+    <h2><a href="{{ article.get_absolute_url }}">{{ article }}<a></h2>
+    <p>
+        {{ article.author.get_full_name|default:article.author }}
+        on {{ article.publish_datetime|date }}
+        in <a href="{{ article.category.get_absolute_url }}">{{ article.category }}</a>
+        ({{ article.is_public|yesno:"published,unpublished" }})
+    </p>
+    {{ article.text|linebreaks }}
+{% empty %}
+    <p>No articles yet!</p>
+{% endfor %}
+{% endblock %}

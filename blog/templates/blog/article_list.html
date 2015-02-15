@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+{% for object in object_list %}
+    <h1><a href="{{ object.get_absolute_url }}">{{ object }}<a></h1>
+    <p>
+        {{ object.author.get_full_name|default:object.author }}
+        on {{ object.publish_datetime|date }}
+        in <a href="{{ object.category.get_absolute_url }}">{{ object.category }}</a>
+        ({{ object.is_public|yesno:"published,unpublished" }})
+    </p>
+    {{ object.text|linebreaks }}
+{% empty %}
+    <p>No articles yet!</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+{% for object in object_list %}
+    <li><a href="{% url "blog:category-detail" slug=object.slug %}">{{ object }}</a></li>
+{% empty %}
+    <p>No categories yet!</p>
+{% endfor %}
+{% endblock %}

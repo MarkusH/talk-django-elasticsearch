@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Demo</title>
+    </head>
+    <body>
+        <form action="{% url "blog:search" %}" method="GET">
+            Search: <input type="search" name="q" value="{{ query }}" />
+            <input type="submit" value="Search">
+        </form>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
