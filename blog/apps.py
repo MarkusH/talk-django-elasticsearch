@@ -2,7 +2,7 @@ from django.apps import AppConfig
 from django.conf import settings
 from django.db.models.signals import post_delete, post_save
 from django.utils.translation import ugettext_lazy as _
-from elasticsearch_dsl import connections
+from elasticsearch_dsl.connections import connections
 
 from .search import init as init_search
 from .signals import post_delete_article, post_save_article
@@ -22,6 +22,6 @@ class BlogConfig(AppConfig):
     verbose_name = _('Blog')
 
     def ready(self):
-        connections.connections.configure(**settings.ELASTICSEARCH_CONNS)
+        connections.create_connection(**settings.ELASTICSEARCH_CONNS)
         init_search()
         connect_signals(self)

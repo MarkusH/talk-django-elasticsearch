@@ -1,12 +1,12 @@
 from celery import shared_task
 from elasticsearch import NotFoundError
 
-from .models import Article
 from .search import Article as SearchArticle
 
 
 @shared_task(bind=True, default_retry_delay=60, max_retries=3)
 def index_article(self, pk):
+    from .models import Article
     try:
         article = Article.objects.select_related('author', 'category').get(pk=pk)
     except Article.ObjectDoesNotExist:
@@ -15,7 +15,7 @@ def index_article(self, pk):
     try:
         search_article = SearchArticle.get(id=pk)
     except NotFoundError:
-        search_article = SearchArticle(id=pk)
+        search_article = SearchArticle(meta={'id': pk})
     data = {
         'author': article.author.get_full_name() or article.author.username,
         'title': article.title,
