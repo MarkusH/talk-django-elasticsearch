@@ -2,7 +2,7 @@ amqp==1.4.6
 anyjson==0.3.3
 billiard==3.3.0.20
 celery==3.1.18
-Django==1.8.3
+Django==1.11.23
 elasticsearch==1.6.0
 elasticsearch-dsl==0.0.4
 kombu==3.0.26
